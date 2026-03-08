@@ -5,6 +5,8 @@
 }
 
 body {
-  background: #0f0f13;
-  color: #e8e8f0;
+  font-family: sans-serif;
+  background: #0f0f0f;
+  color: #ffffff;
+  height: 100vh;
 }
