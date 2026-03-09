@@ -1,16 +1,45 @@
 import { useState } from 'react'
 
-function FileUpload({ onFileSelect }) {
+function FileUpload({ onFileSelect, onTextExtracted }) {
   const [fileName, setFileName] = useState('')
   const [dragging, setDragging] = useState(false)
 
-  const handleFile = (file) => {
+  const handleFile = async (file) => {
     if (!file || file.type !== 'application/pdf') {
       alert('Please upload a PDF file')
       return
     }
+
     setFileName(file.name)
     onFileSelect(file)
+
+    // Send PDF to backend
+    try {
+      // FormData is how browsers send files over HTTP
+      const formData = new FormData()
+      formData.append('pdf', file)
+
+      const res = await fetch('http://localhost:3001/api/upload', {
+        method: 'POST',
+        body: formData,
+        // Note: Don't set Content-Type header manually
+        // Browser sets it automatically with correct boundary for FormData
+      })
+
+      const data = await res.json()
+
+      if (data.success) {
+        console.log(
+          `✅ Extracted ${data.characters} characters from ${data.pages} pages`
+        )
+        onTextExtracted(data.text)
+      } else {
+        alert(data.error || 'Failed to parse PDF')
+      }
+    } catch (err) {
+      console.error('Upload error:', err)
+      alert('Failed to upload PDF')
+    }
   }
 
   const handleChange = (e) => {

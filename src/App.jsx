@@ -6,7 +6,7 @@ function App() {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [_selectedFile, setSelectedFile] = useState(null)
-
+  const [setDocumentText] = useState('')
   const sendMessage = async () => {
     if (!input.trim()) return
 
@@ -44,7 +44,10 @@ function App() {
         <p style={styles.tagline}>AI-powered document assistant</p>
       </div>
 
-      <FileUpload onFileSelect={(file) => setSelectedFile(file)} />
+      <FileUpload
+        onFileSelect={(file) => setSelectedFile(file)}
+        onTextExtracted={(text) => setDocumentText(text)}
+      />
 
       {/* Messages */}
       <div style={styles.messages}>
