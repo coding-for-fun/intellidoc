@@ -6,9 +6,11 @@ function App() {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [_selectedFile, setSelectedFile] = useState(null)
-  const [setDocumentText] = useState('')
+  const [documentText, setDocumentText] = useState('')
   const sendMessage = async () => {
     if (!input.trim()) return
+
+    console.log('documentText ==', documentText)
 
     const userMessage = { role: 'user', content: input }
     setMessages((prev) => [...prev, userMessage])
