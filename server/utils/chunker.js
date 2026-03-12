@@ -1,8 +1,6 @@
 // chunker.js
 // Splits large text into overlapping chunks
 // Why overlap? To avoid cutting sentences at boundaries
-// Example: chunk1 ends mid-sentence, chunk2 starts slightly before
-// so the sentence appears complete in at least one chunk
 
 function chunkText(text, chunkSize = 1000, overlap = 200) {
   const chunks = []
@@ -32,11 +30,10 @@ function chunkText(text, chunkSize = 1000, overlap = 200) {
 }
 
 // Find relevant chunks based on keyword matching
-// Why keyword matching? Simple, fast, no extra API calls
-// Good enough for most document Q&A use cases
+
 function findRelevantChunks(chunks, question, maxChunks = 3) {
-  // Extract keywords from question
   // Remove common words (stop words) that don't carry meaning
+
   const stopWords = new Set([
     'what', 'is', 'the', 'a', 'an', 'in', 'on', 'at', 'to',
     'for', 'of', 'and', 'or', 'but', 'how', 'why', 'when',

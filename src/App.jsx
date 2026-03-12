@@ -10,7 +10,7 @@ function App() {
   const sendMessage = async () => {
     if (!input.trim()) return
 
-    console.log('documentText ==', documentText)
+    console.log('Entered document data ==', documentText)
 
     const userMessage = { role: 'user', content: input }
     setMessages((prev) => [...prev, userMessage])
